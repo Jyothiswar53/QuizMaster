@@ -6,7 +6,6 @@
     <title>Quiz App - Home</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
-
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
@@ -17,6 +16,7 @@
             flex-direction: column;
             align-items: center;
             padding-top: 50px;
+            overflow-x: hidden;
         }
 
         header {
@@ -30,6 +30,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
+            box-sizing: border-box;
         }
 
         header h1 {
@@ -39,19 +40,47 @@
             font-weight: 600;
         }
 
-        nav a {
-            text-decoration: none;
-            color: #555;
-            font-weight: bold;
-            padding: 8px 15px;
-            margin-left: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
         }
 
-        nav a:hover {
+        nav div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+
+        nav a.btn {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 2px solid #4A90E2;
+            text-decoration: none;
+            font-weight: 600;
+            color: #4A90E2;
+            background-color: white;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        nav a.btn:hover {
             background-color: #4A90E2;
             color: white;
+        }
+
+        nav a.btn-primary {
+            background-color: #4A90E2;
+            color: white;
+            border: 2px solid #4A90E2;
+        }
+
+        nav a.btn-primary:hover {
+            background-color: white;
+            color: #4A90E2;
         }
 
         main {
@@ -62,6 +91,7 @@
             max-width: 900px;
             width: 90%;
             text-align: center;
+            box-sizing: border-box;
         }
 
         main h2 {
@@ -83,6 +113,8 @@
             border-radius: 8px;
             padding: 25px;
             margin-top: 30px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .feature-card h3 {
@@ -114,26 +146,128 @@
             margin-top: auto;
             color: #888;
             font-size: 0.9em;
+            box-sizing: border-box;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
-        .btn-primary {
-            background-color: #4A90E2;
-            color: white;
-            border: none;
+        @media (max-width: 1024px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            nav {
+                justify-content: center;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav a.btn,
+            nav a.btn-primary {
+                font-size: 0.95em;
+                flex-shrink: 0;
+            }
         }
 
-        .btn-primary:hover {
-            background-color: #357ABD;
-            transform: translateY(-1px);
+        @media (max-width: 768px) {
+            body {
+                padding-top: 20px;
+            }
+
+            header {
+                padding: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            header h1 {
+                font-size: 1.6em;
+                margin-bottom: 10px;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 8px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav a.btn,
+            nav a.btn-primary {
+                font-size: 0.9em;
+                padding: 6px 14px;
+                border-radius: 20px;
+                flex-shrink: 0;
+            }
+
+            main {
+                padding: 25px 15px;
+                width: 100%;
+            }
+
+            main h2 {
+                font-size: 2em;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+
+            .feature-card a {
+                width: auto;
+                text-align: center;
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.4em;
+            }
+
+            nav a.btn,
+            nav a.btn-primary {
+                font-size: 0.85em;
+                padding: 5px 12px;
+            }
+
+            main {
+                padding: 20px 10px;
+                width: 100%;
+            }
+
+            main h2 {
+                font-size: 1.6em;
+            }
+
+            main p {
+                font-size: 0.95em;
+            }
+
+            footer {
+                font-size: 0.8em;
+                padding: 15px 0;
+            }
         }
     </style>
 </head>
@@ -156,10 +290,14 @@
 
     <main>
         <h2>Challenge Your Mind</h2>
-        <p>Welcome to **QuizMaster**! This app is dedicated entirely to testing your expertise in the **Java Programming Language**. 
-           Dive into our challenges covering everything from core OOP concepts and data structures to advanced features like 
-           Collections, Multithreading, and Exception Handling. Whether you're a Java beginner or preparing for a technical interview, 
-           select your difficulty level—Easy, Medium, or Hard—to track your progress and climb the global leaderboard!</p>
+        <p>Welcome to **QuizMaster**! This app is dedicated entirely to testing your expertise in the **Java Programming
+            Language**.
+            Dive into our challenges covering everything from core OOP concepts and data structures to advanced features
+            like
+            Collections, Multithreading, and Exception Handling. Whether you're a Java beginner or preparing for a
+            technical interview,
+            select your difficulty level—Easy, Medium, or Hard—to track your progress and climb the global leaderboard!
+        </p>
         <div class="feature-card">
             <h3>Ready to Play?</h3>
             <p>Select your difficulty and begin your learning journey instantly.</p>

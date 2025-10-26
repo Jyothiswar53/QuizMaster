@@ -15,28 +15,33 @@
             text-align: center;
             margin: 50px auto;
         }
+
         .login-container h1 {
             color: #4A90E2;
             margin-bottom: 30px;
         }
+
         .login-container div {
             margin-bottom: 20px;
             text-align: left;
         }
+
         .login-container label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
         }
-        .login-container input[type="text"], 
+
+        .login-container input[type="text"],
         .login-container input[type="password"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
+
         .login-container .btn-primary {
             width: 100%;
             margin-top: 10px;
@@ -46,25 +51,90 @@
             border-radius: 4px;
             font-size: 14px;
         }
+
         .message-error {
-            color: #d9534f; 
+            color: #d9534f;
             background-color: #f2dede;
             border: 1px solid #ebccd1;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 15px;
         }
+
         .message-success {
-            color: #5cb85c; 
+            color: #5cb85c;
             background-color: #dff0d8;
             border: 1px solid #d6e9c6;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 15px;
         }
+
         .btn-primary:hover {
             background-color: #3682cf;
             cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                max-width: 90%;
+                padding: 30px;
+                margin: 30px auto;
+            }
+
+            .login-container h1 {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+
+            .login-container input[type="text"],
+            .login-container input[type="password"] {
+                font-size: 1em;
+                padding: 9px;
+            }
+
+            .btn-primary {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                background-color: #f9f9f9;
+            }
+
+            .login-container {
+                padding: 25px 20px;
+                box-shadow: none;
+                border-radius: 8px;
+            }
+
+            .login-container h1 {
+                font-size: 1.5em;
+                text-align: center;
+            }
+
+            .login-container label {
+                font-size: 0.9em;
+            }
+
+            .login-container input[type="text"],
+            .login-container input[type="password"] {
+                padding: 8px;
+                font-size: 0.95em;
+            }
+
+            .btn-primary {
+                font-size: 0.95em;
+                padding: 9px;
+            }
+
+            footer p {
+                font-size: 0.85em;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -74,7 +144,7 @@
         <h1>Welcome Back</h1>
 
         <form th:action="@{/login}" method="post">
-            
+
             <div th:if="${param.error}" class="message-error">
                 <p>Invalid username or password. Please try again.</p>
             </div>
@@ -82,15 +152,15 @@
             <div th:if="${param.logout}" class="message-success">
                 <p>You have been logged out successfully.</p>
             </div>
-            
+
             <div>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required autocomplete="username"/>
+                <input type="text" id="username" name="username" required autocomplete="username" />
             </div>
-            
+
             <div>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required autocomplete="current-password"/>
+                <input type="password" id="password" name="password" required autocomplete="current-password" />
             </div>
 
             <button type="submit" class="btn btn-primary">Log In</button>
@@ -108,4 +178,5 @@
         <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
     </footer>
 </body>
+
 </html>

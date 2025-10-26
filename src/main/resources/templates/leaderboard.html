@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App - Leaderboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .leaderboard-container {
+            max-width: 800px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .leaderboard-container h1 {
+            color: #4A90E2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .filter-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f0f7ff; 
+            border-radius: 8px;
+        }
+        
+        .filter-form label {
+            font-weight: bold;
+            color: #4A90E2;
+        }
+
+        .filter-form select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .leaderboard-table th {
+            background-color: #4A90E2; 
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .leaderboard-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            background-color: white;
+            transition: background-color 0.3s;
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background-color: #f5f5f5; 
+        }
+        
+        .leaderboard-table td:nth-child(1) { 
+            font-weight: bold;
+            text-align: center;
+            width: 10%;
+        }
+
+        .leaderboard-table td:nth-child(3) { 
+            font-weight: bold;
+            color: #D0021B; 
+            width: 25%;
+            text-align: center;
+        }
+
+        .leaderboard-table tbody tr:nth-child(1) td { 
+            background-color: #FFD700;
+            font-size: 1.1em;
+        }
+        .leaderboard-table tbody tr:nth-child(2) td { 
+            background-color: #C0C0C0; 
+        }
+        .leaderboard-table tbody tr:nth-child(3) td { 
+            background-color: #CD7F32; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="leaderboard-container">
+        <h1>🏆 QuizMaster Leaderboard</h1>
+
+        <form th:action="@{/leaderboard}" method="get" class="filter-form">
+            <label>Select Difficulty:</label>
+            <select name="difficulty">
+                <option value="EASY" th:selected="${selectedDifficulty == 'EASY'}">EASY</option>
+                <option value="MEDIUM" th:selected="${selectedDifficulty == 'MEDIUM'}">MEDIUM</option>
+                <option value="HARD" th:selected="${selectedDifficulty == 'HARD'}">HARD</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th style="width: 10%; text-align: center;">Rank</th>
+                    <th>User</th>
+                    <th style="width: 25%; text-align: center;">Best Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry : ${leaderboard}">
+                    <td th:text="${entry.rank}"></td>
+                    <td th:text="${entry.username}"></td>
+                    <td th:text="${entry.score}" style="text-align: center;"></td>
+                </tr>
+                <tr th:if="${leaderboard.size() == 0}">
+                    <td colspan="3">No attempts available for this difficulty</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 30px;"><a th:href="@{/}">Back to Home</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

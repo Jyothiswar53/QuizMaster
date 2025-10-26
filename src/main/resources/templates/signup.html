@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App - Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .signup-container {
+            max-width: 400px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 50px auto;
+        }
+        .signup-container h1 {
+            color: #4A90E2;
+            margin-bottom: 30px;
+        }
+        .signup-container div {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .signup-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .signup-container input[type="text"], 
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+        .signup-container .btn-primary {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4A90E2;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .message-error {
+            color: #d9534f; 
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .btn-primary:hover {
+            background-color: #3682cf;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Create Your Account</h1>
+
+        <form th:action="@{/signup}" th:object="${signupRequest}" method="post">
+            
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required autocomplete="username"/>
+            </div>
+            
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required autocomplete="new-password"/>
+            </div>
+
+            <div th:if="${error}" class="message-error">
+                <p th:text="${error}"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+
+        <p style="margin-top: 20px;">
+            Already have an account? <a th:href="@{/login}">Log In</a>
+        </p>
+        <p>
+            <a th:href="@{/}">Back to Home</a>
+        </p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

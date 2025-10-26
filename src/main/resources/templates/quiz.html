@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz - Test Your Knowledge</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .quiz-container {
+            max-width: 900px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+        }
+
+        .quiz-container h1 {
+            color: #4A90E2;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .question-block strong {
+            display: block;
+            font-size: 1.15em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .option-div {
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .option-div:hover {
+            background-color: #eef;
+        }
+
+        .option-div input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .option-div label {
+            font-weight: normal;
+            cursor: pointer;
+            color: #555;
+        }
+
+        #quizForm button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            margin-top: 40px;
+        }
+
+        .question-block hr {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1 th:text="'Quiz - ' + ${difficulty.toUpperCase()}">Quiz - DIFFICULTY</h1>
+
+        <form id="quizForm" th:action="@{/quiz/submit}" method="post" th:object="${submission}">
+
+            <input type="hidden" th:field="*{difficulty}" />
+
+            <div th:each="question, iterStat : ${questions}" class="question-block">
+
+                <p><strong th:text="${iterStat.index + 1} + '. ' + ${question.questionText}"></strong></p>
+
+                <input type="hidden" th:field="*{questionIds[__${iterStat.index}__]}" />
+
+                <div class="option-div">
+                    <input type="radio" th:id="'q' + ${iterStat.index} + 'opt1'"
+                        th:field="*{answers[__${iterStat.index}__]}" th:value="${question.option1}"
+                        required />
+                    <label th:for="'q' + ${iterStat.index} + 'opt1'" th:text="${question.option1}"></label>
+                </div>
+                <div class="option-div">
+                    <input type="radio" th:id="'q' + ${iterStat.index} + 'opt2'"
+                        th:field="*{answers[__${iterStat.index}__]}" th:value="${question.option2}" />
+                    <label th:for="'q' + ${iterStat.index} + 'opt2'" th:text="${question.option2}"></label>
+                </div>
+                <div class="option-div">
+                    <input type="radio" th:id="'q' + ${iterStat.index} + 'opt3'"
+                        th:field="*{answers[__${iterStat.index}__]}" th:value="${question.option3}" />
+                    <label th:for="'q' + ${iterStat.index} + 'opt3'" th:text="${question.option3}"></label>
+                </div>
+                <div class="option-div">
+                    <input type="radio" th:id="'q' + ${iterStat.index} + 'opt4'"
+                        th:field="*{answers[__${iterStat.index}__]}" th:value="${question.option4}" />
+                    <label th:for="'q' + ${iterStat.index} + 'opt4'" th:text="${question.option4}"></label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Quiz & View Results</button>
+        </form>
+    </div>
+
+    <p style="text-align: center; margin-top: 20px;"><a th:href="@{/select-level}">Cancel and Change Difficulty</a></p>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App - Select Difficulty</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .level-selection-container {
+            max-width: 600px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 50px auto;
+        }
+        .level-selection-container h1 {
+            color: #4A90E2;
+            margin-bottom: 40px;
+            font-size: 2.2em;
+        }
+        .level-buttons {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .difficulty-btn {
+            display: block;
+            flex-grow: 1; 
+            padding: 20px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .easy-btn {
+            background-color: #50E3C2; 
+        }
+        .medium-btn {
+            background-color: #FF9F1C;
+        }
+        .hard-btn {
+            background-color: #D0021B; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="level-selection-container">
+        <h1>Select Your Challenge Level</h1>
+        <p style="color: #555;">Choose a difficulty to start the quiz. Test your knowledge and aim for the top score!</p>
+
+        <div class="level-buttons">
+            <a th:href="@{/quiz(difficulty='easy')}" class="difficulty-btn easy-btn">Easy</a>
+            <a th:href="@{/quiz(difficulty='medium')}" class="difficulty-btn medium-btn">Medium</a>
+            <a th:href="@{/quiz(difficulty='hard')}" class="difficulty-btn hard-btn">Hard</a>
+        </div>
+        
+        <p style="margin-top: 30px;"><a th:href="@{/}">Back to Home</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

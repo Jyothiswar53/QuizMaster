@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App - Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: #4A90E2;
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+            padding: 8px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        main {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
+
+        main h2 {
+            color: #4A90E2;
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+
+        main p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .feature-card {
+            background-color: #F0F8FF;
+            border: 1px solid #4A90E2;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card a {
+            display: inline-block;
+            background-color: #50E3C2;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .feature-card a:hover {
+            background-color: #37C0A0;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #357ABD;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>QuizMaster</h1>
+        <nav>
+            <div th:if="${#authorization.expression('!isAuthenticated()')}">
+                <a th:href="@{/login}" class="btn">Log In</a>
+                <a th:href="@{/signup}" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <span style="margin-right: 15px;">Welcome, <span th:text="${#authentication.name}">User</span>!</span>
+                <a th:href="@{/select-level}" class="btn btn-primary">Start Quiz</a>
+                <a th:href="@{/logout}" class="btn">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Challenge Your Mind</h2>
+        <p>Welcome to **QuizMaster**! This app is dedicated entirely to testing your expertise in the **Java Programming Language**. 
+           Dive into our challenges covering everything from core OOP concepts and data structures to advanced features like 
+           Collections, Multithreading, and Exception Handling. Whether you're a Java beginner or preparing for a technical interview, 
+           select your difficulty level—Easy, Medium, or Hard—to track your progress and climb the global leaderboard!</p>
+        <div class="feature-card">
+            <h3>Ready to Play?</h3>
+            <p>Select your difficulty and begin your learning journey instantly.</p>
+
+            <a th:href="@{/select-level}">Start Your First Quiz</a>
+        </div>
+
+        <div class="feature-card" style="margin-top: 20px; background-color: #FFEFE0;">
+            <h3>See the Champions</h3>
+            <p>Check out the top scores and see who dominates the leaderboard.</p>
+            <a th:href="@{/leaderboard}" style="background-color: #FF9F1C;">View Leaderboard</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

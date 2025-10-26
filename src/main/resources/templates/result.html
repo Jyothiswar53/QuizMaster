@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .result-container {
+            max-width: 600px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        .result-container h1 {
+            color: #4A90E2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .score-box {
+            background-color: #F0F8FF; 
+            border: 2px solid #4A90E2;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .score-text {
+            font-size: 3em; 
+            font-weight: bold;
+            color: #50E3C2; 
+            display: block;
+            margin: 10px 0;
+        }
+
+        .score-text small {
+            font-size: 0.5em;
+            color: #555;
+            font-weight: normal;
+        }
+
+        .result-item {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .result-item strong {
+            color: #4A90E2;
+        }
+        
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+        }
+        
+        .buttons a {
+            padding: 12px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-leaderboard {
+            background-color: #FF9F1C; 
+            color: white;
+        }
+        .btn-leaderboard:hover {
+            background-color: #E68A00;
+        }
+
+        .btn-retake {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .btn-retake:hover {
+            background-color: #357ABD;
+        }
+
+        .btn-home {
+            background-color: #ccc; 
+            color: #333;
+        }
+        .btn-home:hover {
+            background-color: #bbb;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Quiz Complete!</h1>
+
+        <div th:if="${attempt != null}">
+            
+            <p class="result-item"><strong>User:</strong> <span th:text="${attempt.user.username}"></span></p>
+            <p class="result-item"><strong>Difficulty:</strong> <span th:text="${attempt.difficulty.toUpperCase()}"></span></p>
+            <p class="result-item"><strong>Date Taken:</strong> <span th:text="${#temporals.format(attempt.dateTaken, 'dd MMM yyyy, HH:mm')}"></span></p>
+
+            <div class="score-box">
+                <h2>Final Score:</h2>
+                <p class="score-text">
+                    <span th:text="${attempt.score}"></span> / 
+                    <small th:text="${attempt.totalQuestions}"></small>
+                </p>
+                <p th:if="${attempt.score == attempt.totalQuestions}" style="color: green; font-weight: bold;">
+                    🎉 Perfect Score! Congratulations!
+                </p>
+                <p th:if="${attempt.score < attempt.totalQuestions / 2}" style="color: #D0021B; font-weight: bold;">
+                    Keep practicing! You can do better next time.
+                </p>
+            </div>
+        </div>
+
+        <div th:if="${attempt == null}">
+            <p style="color: #D0021B;">No quiz attempt found. Please try taking a quiz first.</p>
+        </div>
+
+        <div class="buttons">
+            <a th:href="@{/leaderboard(difficulty=${attempt?.difficulty})}" class="btn-leaderboard">🏆 View Leaderboard</a>
+            <a th:href="@{/quiz(difficulty=${attempt?.difficulty})}" class="btn-retake">🔄 Retake Quiz</a>
+            <a th:href="@{/}" class="btn-home">🏠 Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

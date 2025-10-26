@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input[type="text"], select {
+            width: 300px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+
+    <h2>Add / Update Question</h2>
+    <form th:action="@{/admin/question}" th:object="${question}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        
+        <div>
+            <label>Question Text:</label>
+            <input type="text" th:field="*{questionText}" required />
+        </div>
+
+        <div>
+            <label>Option 1:</label>
+            <input type="text" th:field="*{option1}" required />
+        </div>
+        <div>
+            <label>Option 2:</label>
+            <input type="text" th:field="*{option2}" required />
+        </div>
+        <div>
+            <label>Option 3:</label>
+            <input type="text" th:field="*{option3}" required />
+        </div>
+        <div>
+            <label>Option 4:</label>
+            <input type="text" th:field="*{option4}" required />
+        </div>
+
+        <div>
+            <label>Correct Answer:</label>
+            <input type="text" th:field="*{correctAnswer}" required />
+        </div>
+
+        <div>
+            <label>Difficulty:</label>
+            <select th:field="*{difficulty}" required>
+                <option value="">Select</option>
+                <option value="EASY">EASY</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HARD">HARD</option>
+            </select>
+        </div>
+
+        <button type="submit">Save Question</button>
+    </form>
+
+    <h2>All Questions</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Text</th>
+                <th>Options</th>
+                <th>Answer</th>
+                <th>Difficulty</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="q : ${questions}">
+                <td th:text="${q.id}"></td>
+                <td th:text="${q.questionText}"></td>
+                <td>
+                    <ul>
+                        <li th:text="${q.option1}"></li>
+                        <li th:text="${q.option2}"></li>
+                        <li th:text="${q.option3}"></li>
+                        <li th:text="${q.option4}"></li>
+                    </ul>
+                </td>
+                <td th:text="${q.correctAnswer}"></td>
+                <td th:text="${q.difficulty}"></td>
+                <td>
+                    <a th:href="@{'/admin/question/delete/' + ${q.id}}">Delete</a>
+                </td>
+            </tr>
+            <tr th:if="${questions.size() == 0}">
+                <td colspan="6">No questions available</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

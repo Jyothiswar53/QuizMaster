@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App - Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        .login-container {
+            max-width: 400px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 50px auto;
+        }
+        .login-container h1 {
+            color: #4A90E2;
+            margin-bottom: 30px;
+        }
+        .login-container div {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .login-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .login-container input[type="text"], 
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+        .login-container .btn-primary {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4A90E2;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .message-error {
+            color: #d9534f; 
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .message-success {
+            color: #5cb85c; 
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .btn-primary:hover {
+            background-color: #3682cf;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Welcome Back</h1>
+
+        <form th:action="@{/login}" method="post">
+            
+            <div th:if="${param.error}" class="message-error">
+                <p>Invalid username or password. Please try again.</p>
+            </div>
+
+            <div th:if="${param.logout}" class="message-success">
+                <p>You have been logged out successfully.</p>
+            </div>
+            
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required autocomplete="username"/>
+            </div>
+            
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </form>
+
+        <p style="margin-top: 20px;">
+            Don't have an account? <a th:href="@{/signup}">Sign Up</a>
+        </p>
+        <p>
+            <a th:href="@{/}">Back to Home</a>
+        </p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

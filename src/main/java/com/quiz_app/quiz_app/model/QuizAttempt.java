@@ -2,8 +2,8 @@ package com.quiz_app.quiz_app.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user_attempts")
@@ -20,8 +20,9 @@ public class QuizAttempt {
 
     private String difficulty;
     private int score;
-
     private int totalQuestions;
-
     private LocalDateTime dateTaken;
+
+    @OneToMany(mappedBy = "quizAttempt", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<QuizQuestionAttempt> questionAttempts;
 }

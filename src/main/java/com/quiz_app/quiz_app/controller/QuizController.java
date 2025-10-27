@@ -32,7 +32,6 @@ public class QuizController {
         }
 
         List<Question> questions = quizService.getQuestions(difficulty.toLowerCase(), 10);
-
         QuizSubmissionDto submission = new QuizSubmissionDto();
         submission.setDifficulty(difficulty.toUpperCase());
 
@@ -68,6 +67,10 @@ public class QuizController {
     public String showResult(@PathVariable Long id, Model model) {
         QuizAttempt attempt = quizService.getAttemptById(id);
         model.addAttribute("attempt", attempt);
+
+        if (attempt != null) {
+            model.addAttribute("questionAttempts", attempt.getQuestionAttempts());
+        }
         return "result";
     }
 }

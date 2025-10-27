@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Quiz Result</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
         .result-container {
-            max-width: 600px;
+            max-width: 900px;
             padding: 40px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(6, 6, 6, 0.6);
             text-align: center;
             margin: 50px auto;
         }
@@ -22,7 +23,7 @@
         }
 
         .score-box {
-            background-color: #F0F8FF; 
+            background-color: #F0F8FF;
             border: 2px solid #4A90E2;
             padding: 20px;
             margin: 25px 0;
@@ -30,9 +31,9 @@
         }
 
         .score-text {
-            font-size: 3em; 
+            font-size: 3em;
             font-weight: bold;
-            color: #50E3C2; 
+            color: #50E3C2;
             display: block;
             margin: 10px 0;
         }
@@ -52,14 +53,46 @@
         .result-item strong {
             color: #4A90E2;
         }
-        
+
+        .question-review {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .question-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .option {
+            margin: 5px 0;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .wrong {
+            color: red;
+            font-weight: bold;
+        }
+
+        .user-answer {
+            font-style: italic;
+        }
+
         .buttons {
             margin-top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px; 
+            gap: 15px;
         }
-        
+
         .buttons a {
             padding: 12px 20px;
             text-decoration: none;
@@ -67,11 +100,12 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
-        
+
         .btn-leaderboard {
-            background-color: #FF9F1C; 
+            background-color: #FF9F1C;
             color: white;
         }
+
         .btn-leaderboard:hover {
             background-color: #E68A00;
         }
@@ -80,58 +114,77 @@
             background-color: #4A90E2;
             color: white;
         }
+
         .btn-retake:hover {
             background-color: #357ABD;
         }
 
         .btn-home {
-            background-color: #ccc; 
+            background-color: #ccc;
             color: #333;
         }
+
         .btn-home:hover {
             background-color: #bbb;
         }
-
+        .result-border {
+            border: 2px solid #4A90E2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
+
 <body>
     <div class="result-container">
-        <h1>Quiz Complete!</h1>
+        <div class="result-border">
+            <h1>Quiz Complete!</h1>
 
-        <div th:if="${attempt != null}">
-            
-            <p class="result-item"><strong>User:</strong> <span th:text="${attempt.user.username}"></span></p>
-            <p class="result-item"><strong>Difficulty:</strong> <span th:text="${attempt.difficulty.toUpperCase()}"></span></p>
-            <p class="result-item"><strong>Date Taken:</strong> <span th:text="${#temporals.format(attempt.dateTaken, 'dd MMM yyyy, HH:mm')}"></span></p>
+            <div th:if="${attempt != null}">
+                <p><strong>User:</strong> <span th:text="${attempt.user.username}"></span></p>
+                <p><strong>Difficulty:</strong> <span th:text="${attempt.difficulty}"></span></p>
+                <p><strong>Date Taken:</strong> <span
+                        th:text="${#temporals.format(attempt.dateTaken, 'dd MMM yyyy, HH:mm')}"></span></p>
 
-            <div class="score-box">
-                <h2>Final Score:</h2>
-                <p class="score-text">
-                    <span th:text="${attempt.score}"></span> / 
-                    <small th:text="${attempt.totalQuestions}"></small>
+                <h2>Final Score: <span th:text="${attempt.score}" style="color:green;"></span> /
+                    <span th:text="${attempt.totalQuestions}"></span>
+                </h2>
+            </div>
+        </div>
+
+        <div th:if="${questionAttempts != null}" class="question-review">
+            <h2>Question Review</h2>
+            <div th:each="qa : ${questionAttempts}" class="question-item">
+                <p><strong th:text="'Q: ' + ${qa.questionText}"></strong></p>
+                <div class="options">
+                    <p class="option" th:classappend="${qa.option1 == qa.correctAnswer} ? 'correct' : ''"
+                        th:text="'A) ' + ${qa.option1}"></p>
+                    <p class="option" th:classappend="${qa.option2 == qa.correctAnswer} ? 'correct' : ''"
+                        th:text="'B) ' + ${qa.option2}"></p>
+                    <p class="option" th:classappend="${qa.option3 == qa.correctAnswer} ? 'correct' : ''"
+                        th:text="'C) ' + ${qa.option3}"></p>
+                    <p class="option" th:classappend="${qa.option4 == qa.correctAnswer} ? 'correct' : ''"
+                        th:text="'D) ' + ${qa.option4}"></p>
+                </div>
+
+                <p><strong>Your Answer:</strong>
+                    <span class="user-answer" th:classappend="${qa.correct} ? 'correct' : 'wrong'"
+                        th:text="${qa.userAnswer}"></span>
                 </p>
-                <p th:if="${attempt.score == attempt.totalQuestions}" style="color: green; font-weight: bold;">
-                    🎉 Perfect Score! Congratulations!
-                </p>
-                <p th:if="${attempt.score < attempt.totalQuestions / 2}" style="color: #D0021B; font-weight: bold;">
-                    Keep practicing! You can do better next time.
+                <p><strong>Correct Answer:</strong>
+                    <span class="correct" th:text="${qa.correctAnswer}"></span>
                 </p>
             </div>
         </div>
 
-        <div th:if="${attempt == null}">
-            <p style="color: #D0021B;">No quiz attempt found. Please try taking a quiz first.</p>
-        </div>
-
-        <div class="buttons">
-            <a th:href="@{/leaderboard(difficulty=${attempt?.difficulty})}" class="btn-leaderboard">🏆 View Leaderboard</a>
+        <div class="buttons" style="margin-top: 30px;">
+            <a th:href="@{/leaderboard(difficulty=${attempt?.difficulty})}" class="btn-leaderboard">🏆 View
+                Leaderboard</a>
             <a th:href="@{/quiz(difficulty=${attempt?.difficulty})}" class="btn-retake">🔄 Retake Quiz</a>
             <a th:href="@{/}" class="btn-home">🏠 Home</a>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
-    </footer>
 </body>
+
 </html>

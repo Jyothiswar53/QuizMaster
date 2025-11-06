@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App - Leaderboard</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
+        body{
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            height: 100vh;
+        }
         .leaderboard-container {
             max-width: 800px;
             padding: 40px;
@@ -43,6 +46,20 @@
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+        
+        .filter-form button {
+            padding: 6px 14px;
+            background-color: #d90429;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-form button:hover {
+            background-color: #c30622;
+        }
 
         .leaderboard-table {
             width: 100%;
@@ -52,7 +69,7 @@
         }
 
         .leaderboard-table th {
-            background-color: #4A90E2; 
+            background-color: #2b2d42;; 
             color: white;
             padding: 12px;
             text-align: left;
@@ -113,9 +130,9 @@
         <table class="leaderboard-table">
             <thead>
                 <tr>
-                    <th style="width: 10%; text-align: center;">Rank</th>
-                    <th>User</th>
-                    <th style="width: 25%; text-align: center;">Best Score</th>
+                    <th style="width: 10%; text-align: center; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;">RANK</th>
+                    <th style="font-weight: bolder; font-family: Arial, Helvetica, sans-serif;">USER</th>
+                    <th style="width: 10%; text-align: center; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;">BEST SCORE</th>
                 </tr>
             </thead>
             <tbody>

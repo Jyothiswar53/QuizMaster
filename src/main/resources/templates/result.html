@@ -7,6 +7,9 @@
     <title>Quiz Result</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
+        body{
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
         .result-container {
             max-width: 900px;
             padding: 40px;
@@ -23,41 +26,24 @@
             font-size: 2.5em;
         }
 
-        .score-box {
-            background-color: #F0F8FF;
+        .result-container h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .result-border {
             border: 2px solid #4A90E2;
             padding: 20px;
-            margin: 25px 0;
-            border-radius: 8px;
-        }
-
-        .score-text {
-            font-size: 3em;
-            font-weight: bold;
-            color: #50E3C2;
-            display: block;
-            margin: 10px 0;
-        }
-
-        .score-text small {
-            font-size: 0.5em;
-            color: #555;
-            font-weight: normal;
-        }
-
-        .result-item {
-            font-size: 1.1em;
-            margin: 10px 0;
-            color: #333;
-        }
-
-        .result-item strong {
-            color: #4A90E2;
+            border-radius: 10px;
+            margin-bottom: 30px;
         }
 
         .question-review {
             text-align: left;
             margin-top: 30px;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1.5px solid #4A90E2;
         }
 
         .question-item {
@@ -100,6 +86,7 @@
             font-weight: bold;
             border-radius: 5px;
             transition: background-color 0.3s;
+            text-align: center;
         }
 
         .btn-leaderboard {
@@ -128,12 +115,6 @@
         .btn-home:hover {
             background-color: #bbb;
         }
-        .result-border {
-            border: 2px solid #4A90E2;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
     </style>
 </head>
 
@@ -145,10 +126,12 @@
             <div th:if="${attempt != null}">
                 <p><strong>User:</strong> <span th:text="${attempt.user.username}"></span></p>
                 <p><strong>Difficulty:</strong> <span th:text="${attempt.difficulty}"></span></p>
-                <p><strong>Date Taken:</strong> <span
-                        th:text="${#temporals.format(attempt.dateTaken, 'dd MMM yyyy, HH:mm')}"></span></p>
+                <p><strong>Date Taken:</strong> 
+                    <span th:text="${#temporals.format(attempt.dateTaken, 'dd MMM yyyy, HH:mm')}"></span>
+                </p>
 
-                <h2>Final Score: <span th:text="${attempt.score}" style="color:green;"></span> /
+                <h2>Final Score: 
+                    <span th:text="${attempt.score}" style="color:green;"></span> /
                     <span th:text="${attempt.totalQuestions}"></span>
                 </h2>
             </div>
@@ -180,8 +163,7 @@
         </div>
 
         <div class="buttons" style="margin-top: 30px;">
-            <a th:href="@{/leaderboard(difficulty=${attempt?.difficulty})}" class="btn-leaderboard">🏆 View
-                Leaderboard</a>
+            <a th:href="@{/leaderboard(difficulty=${attempt?.difficulty})}" class="btn-leaderboard">🏆 View Leaderboard</a>
             <a th:href="@{/quiz(difficulty=${attempt?.difficulty})}" class="btn-retake">🔄 Retake Quiz</a>
             <a th:href="@{/}" class="btn-home">🏠 Home</a>
         </div>

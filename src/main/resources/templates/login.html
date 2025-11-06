@@ -1,140 +1,190 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App - Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
         .login-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
             max-width: 400px;
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin: 50px auto;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-3px);
         }
 
         .login-container h1 {
-            color: #4A90E2;
-            margin-bottom: 30px;
+            margin-bottom: 1.8rem;
+            color: #2b2d42;
+            font-size: 1.8rem;
         }
 
-        .login-container div {
-            margin-bottom: 20px;
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        label {
             text-align: left;
-        }
-
-        .login-container label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #333;
         }
 
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 0.7rem 0.9rem;
+            border-radius: 8px;
+            border: 1.5px solid #ccc;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
         }
 
-        .login-container .btn-primary {
-            width: 100%;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #4A90E2;
+        input:focus {
+            border-color: #ef233c;
+            box-shadow: 0 0 5px rgba(239, 35, 60, 0.3);
+            outline: none;
+        }
+
+        .btn {
+            cursor: pointer;
+            padding: 0.8rem;
             border: none;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
-        .message-error {
-            color: #d9534f;
-            background-color: #f2dede;
-            border: 1px solid #ebccd1;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .message-success {
-            color: #5cb85c;
-            background-color: #dff0d8;
-            border: 1px solid #d6e9c6;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+        .btn-primary {
+            background-color: #ef233c;
+            color: #fff;
         }
 
         .btn-primary:hover {
-            background-color: #3682cf;
-            cursor: pointer;
+            background-color: #d90429;
+            transform: translateY(-2px);
+        }
+
+        .message-error,
+        .message-success {
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-error {
+            background-color: #ffe6e6;
+            color: #b00020;
+            border-left: 5px solid #b00020;
+        }
+
+        .message-success {
+            background-color: #e6ffe9;
+            color: #007f4f;
+            border-left: 5px solid #007f4f;
+        }
+
+        .login-container a {
+            color: #ef233c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .login-container a:hover {
+            color: #d90429;
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
             .login-container {
                 max-width: 90%;
-                padding: 30px;
-                margin: 30px auto;
+                padding: 2rem 1.5rem;
             }
 
             .login-container h1 {
-                font-size: 1.8em;
-                margin-bottom: 25px;
+                font-size: 1.6rem;
             }
 
-            .login-container input[type="text"],
-            .login-container input[type="password"] {
-                font-size: 1em;
-                padding: 9px;
+            input[type="text"],
+            input[type="password"] {
+                font-size: 0.95rem;
             }
 
             .btn-primary {
-                font-size: 1em;
-                padding: 10px;
+                font-size: 0.95rem;
+                padding: 0.7rem;
+            }
+
+            footer {
+                font-size: 0.85rem;
             }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 10px;
-                background-color: #f9f9f9;
-            }
-
             .login-container {
-                padding: 25px 20px;
-                box-shadow: none;
-                border-radius: 8px;
+                padding: 1.8rem 1rem;
             }
 
             .login-container h1 {
-                font-size: 1.5em;
-                text-align: center;
-            }
-
-            .login-container label {
-                font-size: 0.9em;
-            }
-
-            .login-container input[type="text"],
-            .login-container input[type="password"] {
-                padding: 8px;
-                font-size: 0.95em;
+                font-size: 1.4rem;
             }
 
             .btn-primary {
-                font-size: 0.95em;
-                padding: 9px;
+                font-size: 0.9rem;
             }
 
-            footer p {
-                font-size: 0.85em;
-                text-align: center;
+            label {
+                font-size: 0.9rem;
             }
         }
     </style>

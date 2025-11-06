@@ -3,271 +3,226 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App - Home</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
+        * {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #222;
+            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            overflow-x: hidden;
         }
 
         header {
-            width: 100%;
-            max-width: 900px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px 40px;
+            background: #2b2d42;
+            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            box-sizing: border-box;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            color: #4A90E2;
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            flex: 1;
         }
 
         nav {
             display: flex;
             align-items: center;
-            gap: 12px;
-            white-space: nowrap;
-        }
-
-        nav div {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: nowrap;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         nav a.btn {
-            display: inline-block;
-            padding: 8px 18px;
-            border-radius: 25px;
-            border: 2px solid #4A90E2;
             text-decoration: none;
-            font-weight: 600;
-            color: #4A90E2;
-            background-color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            color: #2b2d42;
+            background-color: #fff;
         }
 
         nav a.btn:hover {
-            background-color: #4A90E2;
-            color: white;
+            background-color: #edf2f4;
+            transform: translateY(-2px);
         }
 
         nav a.btn-primary {
-            background-color: #4A90E2;
-            color: white;
-            border: 2px solid #4A90E2;
+            background-color: #ef233c;
+            color: #fff;
         }
 
         nav a.btn-primary:hover {
-            background-color: white;
-            color: #4A90E2;
+            background-color: #d90429;
+        }
+
+        .container {
+            background-color: aliceblue;
+            border-radius: 10px;
+            padding: 50px 30px;
+            border:0.5px solid #2b2d42;
         }
 
         main {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            flex: 1;
             max-width: 900px;
-            width: 90%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
             text-align: center;
-            box-sizing: border-box;
         }
 
         main h2 {
-            color: #4A90E2;
-            margin-top: 0;
-            font-size: 2.5em;
+            font-size: 2rem;
+            color: #2b2d42;
+            margin-bottom: 1rem;
         }
 
         main p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #555;
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 2rem;
         }
 
         .feature-card {
-            background-color: #F0F8FF;
-            border: 1px solid #4A90E2;
-            border-radius: 8px;
-            padding: 25px;
-            margin-top: 30px;
-            width: 100%;
-            box-sizing: border-box;
+            background-color: #edf2f4;
+            border: 0.7px solid #2b2d42;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .feature-card h3 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            color: #2b2d42;
+            margin-bottom: 0.75rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #555;
+            margin-bottom: 1.2rem;
         }
 
         .feature-card a {
             display: inline-block;
-            background-color: #50E3C2;
-            color: white;
-            padding: 12px 25px;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: background-color 0.3s;
+            color: #fff;
+            background-color: #2b2d42;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .feature-card a:hover {
-            background-color: #37C0A0;
+            background-color: #ef233c;
+            transform: translateY(-2px);
         }
 
         footer {
-            width: 100%;
+            background-color: #2b2d42;
+            color: #fff;
             text-align: center;
-            padding: 20px 0;
+            padding: 1rem;
+            font-size: 0.9rem;
             margin-top: auto;
-            color: #888;
-            font-size: 0.9em;
-            box-sizing: border-box;
         }
 
-        html,
-        body {
-            max-width: 100%;
-            overflow-x: hidden;
-        }
-
-        @media (max-width: 1024px) {
+        @media (max-width: 992px) {
             header {
                 flex-direction: column;
-                align-items: center;
-                gap: 15px;
+                align-items: flex-start;
+                padding: 1.2rem;
             }
 
             nav {
-                justify-content: center;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scrollbar-width: none;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
             }
 
-            nav::-webkit-scrollbar {
-                display: none;
+            header h1 {
+                margin-bottom: 0.8rem;
             }
 
-            nav a.btn,
-            nav a.btn-primary {
-                font-size: 0.95em;
-                flex-shrink: 0;
+            main {
+                max-width: 700px;
             }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 20px;
-            }
-
             header {
-                padding: 15px;
-                flex-direction: column;
                 align-items: center;
-            }
-
-            header h1 {
-                font-size: 1.6em;
-                margin-bottom: 10px;
+                text-align: center;
             }
 
             nav {
                 justify-content: center;
-                gap: 8px;
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                padding-bottom: 5px;
+                gap: 0.8rem;
             }
 
-            nav::-webkit-scrollbar {
-                display: none;
-            }
-
-            nav a.btn,
-            nav a.btn-primary {
-                font-size: 0.9em;
-                padding: 6px 14px;
-                border-radius: 20px;
-                flex-shrink: 0;
-            }
-
-            main {
-                padding: 25px 15px;
-                width: 100%;
+            header h1 {
+                font-size: 1.6rem;
             }
 
             main h2 {
-                font-size: 2em;
+                font-size: 1.6rem;
+            }
+
+            main p {
+                font-size: 1rem;
             }
 
             .feature-card {
-                padding: 20px;
+                padding: 1.2rem;
             }
 
             .feature-card a {
-                width: auto;
+                width: 100%;
                 text-align: center;
-                font-size: 0.95em;
             }
         }
 
         @media (max-width: 480px) {
-            header {
-                padding: 10px;
-            }
-
             header h1 {
-                font-size: 1.4em;
+                font-size: 1.4rem;
             }
 
             nav a.btn,
             nav a.btn-primary {
-                font-size: 0.85em;
-                padding: 5px 12px;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
             }
 
             main {
-                padding: 20px 10px;
-                width: 100%;
+                padding: 0 1rem;
             }
 
-            main h2 {
-                font-size: 1.6em;
-            }
-
-            main p {
-                font-size: 0.95em;
+            .feature-card h3 {
+                font-size: 1.2rem;
             }
 
             footer {
-                font-size: 0.8em;
-                padding: 15px 0;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -288,31 +243,38 @@
             </div>
         </nav>
     </header>
+    <div>
+        <main>
+            <div class="container">
+                <h2>Challenge Your Mind</h2>
+                <p>Welcome to **QuizMaster**! This app is dedicated entirely to testing your expertise in the **Java
+                    Programming
+                    Language**.
+                    Dive into our challenges covering everything from core OOP concepts and data structures to advanced
+                    features
+                    like
+                    Collections, Multithreading, and Exception Handling. Whether you're a Java beginner or preparing for
+                    a
+                    technical interview,
+                    select your difficulty level—Easy, Medium, or Hard—to track your progress and climb the global
+                    leaderboard!
+                </p>
+                <div class="feature-card">
+                    <h3>Ready to Play?</h3>
+                    <p>Select your difficulty and begin your learning journey instantly.</p>
 
-    <main>
-        <h2>Challenge Your Mind</h2>
-        <p>Welcome to **QuizMaster**! This app is dedicated entirely to testing your expertise in the **Java Programming
-            Language**.
-            Dive into our challenges covering everything from core OOP concepts and data structures to advanced features
-            like
-            Collections, Multithreading, and Exception Handling. Whether you're a Java beginner or preparing for a
-            technical interview,
-            select your difficulty level—Easy, Medium, or Hard—to track your progress and climb the global leaderboard!
-        </p>
-        <div class="feature-card">
-            <h3>Ready to Play?</h3>
-            <p>Select your difficulty and begin your learning journey instantly.</p>
+                    <a th:href="@{/select-level}">Start Your First Quiz</a>
+                </div>
 
-            <a th:href="@{/select-level}">Start Your First Quiz</a>
-        </div>
+                <div class="feature-card" style="margin-top: 20px; background-color: #FFEFE0;">
+                    <h3>See the Champions</h3>
+                    <p>Check out the top scores and see who dominates the leaderboard.</p>
+                    <a th:href="@{/leaderboard}" style="background-color: #FF9F1C;">View Leaderboard</a>
+                </div>
+            </div>
+        </main>
 
-        <div class="feature-card" style="margin-top: 20px; background-color: #FFEFE0;">
-            <h3>See the Champions</h3>
-            <p>Check out the top scores and see who dominates the leaderboard.</p>
-            <a th:href="@{/leaderboard}" style="background-color: #FF9F1C;">View Leaderboard</a>
-        </div>
-
-    </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 QuizMaster App. All rights reserved.</p>
